@@ -1,0 +1,75 @@
+Project Description:
+Create a virtual library management system, which will store what items are in the library,
+as well as tracking and managing those objects.
+
+Requirements:
+An overall Library class that can store all of the items in the library
+A Book class that will store information about a book
+A Movie class that will store information about a movie
+A way to create accounts for different patrons of the library
+A way to give the information that would be on a library card
+A way to track which patrons have which books checked out, when they are due, and what charges might be charged
+A way to check out and return items
+A way to donate items
+A way to search if certain items are in the library
+
+Possible implementations:
+A library class, which will store all the items in the library, track if they are checked out or not
+
+Library:
+-dictionary of all items currently held by the library
+-a dictionary of all books in the library
+-a dictionary of all movies in the library
+-a dictionary of all patron accounts currently in the library
+-total number of items stored
+-total number of books, total number of movies, total number of patron accounts
+-a check out method (updates the object to read currently checked out, and assigns it to a patron account)
+-a return method (updates the object to read not currently checked out, removes it from a patron account)
+-a donate method (adds a new book to the library)
+-a search by title; search by id; search by genre; search by author
+-a create account method
+
+Item:
+-a title instance variable
+-a genre instance variable
+-an id instance variable
+-a currently checked out boolean
+-a when due instance variable
+-number of times checked out
+-a check out method (this method will be called by the library class)
+-a return method (this method will be called by the library class)
+
+Book:
+-inherits from item
+-an author instance variable
+
+Movie:
+-inherits from item
+-runtime instance variable?
+
+Patron:
+-name instance variable
+-address instance variable
+-id number
+-list of items currently checked out, and their due dates
+-history of items previously checked out
+-charge on card
+
+
+
+Attributes to store:
+Book - Title, Author, Genre, ID, currently checked out, when due, number of times checked out
+Movie - Title, Genre, ID, currently checked out, when due, number of times checked out
+Accounts - Name, Address, ID number, currently checked out items, charge on card, history
+Library - store all items, provides search methods for each type, tracks currently checked out books and their due dates, stores personal data
+
+
+Classes:
+Library
+Item (super)
+Book (sub)
+Movie(sub)
+Patron
+
+
+use the tkinter library to build a UI for my library

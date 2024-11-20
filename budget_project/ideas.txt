@@ -1,0 +1,12 @@
+Budget Tracking Project
+
+Key Requirements:
+It's a budget software.
+Implement a UI for the user to interact with.
+Bundle the script and related scripts into an executable
+Have a way to save and read Data
+
+- build classes that can contain the functionality of the program. A way to track and store income,
+expenses, and running totals. I also want a way to track savings.
+
+- a way to track individual categories of budgets.

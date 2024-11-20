@@ -1,0 +1,60 @@
+{
+    "tests": [
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_history_create_history",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_history_add1",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_history_add2",
+            "output": "Duplicate item 10/11/24, 1000.0 not included in new history.\nDuplicate item 10/15/24, 2000.0 not included in new history.\nDuplicate item 12/12/24, 3000.0 not included in new history.\nDuplicate item 10/11/24, 1000.0 not included in new history.\nDuplicate item 10/11/24, 1000.0 not included in new history.\nDuplicate item 9/2/23, 12000.0 not included in new history.\nDuplicate item 6/7/15, 2020.0 not included in new history.\nDuplicate item 8/9/10, 1000.0 not included in new history.\n\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_create_budget_list",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_budget_repr",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_budget_verify_data_integrity",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_savings",
+            "output": "\n",
+            "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_category_basic",
+            "output": "\n",
+            "visibility": "visible"
+        }
+    ]
+}
