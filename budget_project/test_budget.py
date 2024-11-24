@@ -219,3 +219,4 @@ def test_category_basic():
     budget1.create_category("Test2", 500)
 
     # test the create_category method, as well as the update_category_amount method, as well as the Category object itself
+    assert len(budget1.category_list) == 2
