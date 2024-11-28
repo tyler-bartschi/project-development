@@ -218,5 +218,8 @@ def test_category_basic():
     budget1.create_category("Test1", 100)
     budget1.create_category("Test2", 500)
 
-    # test the create_category method, as well as the update_category_amount method, as well as the Category object itself
-    assert len(budget1.category_list) == 2
+    assert len(budget1.category_dict) == 2
+    assert budget1.category_dict["Test1"].name == "Test1"
+    assert budget1.category_dict["Test1"].income == 100.0
+    assert budget1.category_dict["Test2"].income == 500.0
+    budget1.category_dict['Test1'].expenditure

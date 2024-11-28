@@ -73,7 +73,7 @@ class Budget():
         self.current_total_expenses = 0.0
         self.amount_left = self.income - self.current_total_expenses
         self.expense_list = []
-        self.category_list = []
+        self.category_dict = {}
 
     def __str__(self):
         return (f"{self.name}, {self.income}")
@@ -107,7 +107,7 @@ class Budget():
     def create_category(self, name, amount):
         """a function for creating a category in the budget"""
         new_category = Category(name, amount)
-        self.category_list.append(new_category)
+        self.category_dict[new_category.name] = new_category
 
     def update_category_amount(self, amount, category, method="expense", name="Expenditure"):
         """a function to be called when a category amount needs to be updated, which will update
@@ -130,7 +130,7 @@ class Budget():
 
     def store_categories(self):
         """creates a list with the necessary information to store the categories created by the budget"""
-        return []
+        return {}
 
     def update_savings(self, amount, savings):
         """Updates a given savings object by the given amount"""
@@ -187,8 +187,8 @@ class Budget():
         if not isinstance(lst[4], list):
             raise TypeError(f"{lst[4]} must be a list.")
 
-        if not isinstance(lst[5], list):
-            raise TypeError(f"{lst[5]} must be a list.")
+        if not isinstance(lst[5], dict):
+            raise TypeError(f"{lst[5]} must be a dictionary.")
 
 
 class Category(Budget):
