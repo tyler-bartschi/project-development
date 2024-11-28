@@ -124,13 +124,16 @@ class Budget():
         elif method.lower() == "income":
             category.update_income(amount)
 
-    def build_category_list(self, lst):
+    def build_category_dict(self, lst):
         """takes a list with the necessary information to create the categories within the budget"""
-        pass
+        assert isinstance(lst, list), "Must be a list"
+        for item in lst:
+            category = eval(item)
+            self.category_dict[category.name] = category
 
     def store_categories(self):
         """creates a list with the necessary information to store the categories created by the budget"""
-        return {}
+        return [repr(object) for _, object in self.category_dict.items()]
 
     def update_savings(self, amount, savings):
         """Updates a given savings object by the given amount"""
@@ -162,7 +165,7 @@ class Budget():
         new_budget.current_total_expenses = float(lst[2])
         new_budget.amount_left = float(lst[3])
         new_budget.expense_list = lst[4]
-        new_budget.build_category_list(lst[5])
+        new_budget.build_category_dict(lst[5])
         return new_budget
 
     @staticmethod
@@ -187,8 +190,8 @@ class Budget():
         if not isinstance(lst[4], list):
             raise TypeError(f"{lst[4]} must be a list.")
 
-        if not isinstance(lst[5], dict):
-            raise TypeError(f"{lst[5]} must be a dictionary.")
+        if not isinstance(lst[5], list):
+            raise TypeError(f"{lst[5]} must be a list.")
 
 
 class Category(Budget):
@@ -206,7 +209,7 @@ class Category(Budget):
     def create_category(self, name, amount):
         raise TypeError("Cannot create a category within a Category.")
 
-    def build_category_list(self, lst):
+    def build_category_dict(self, lst):
         raise TypeError("Cannot create a category list within a Category.")
 
     def store_categories(self):
@@ -220,7 +223,7 @@ class Category(Budget):
 
     @staticmethod
     def build_category(lst):
-        Budget.verify_data_integrity
+        Budget.verify_data_integrity(lst)
         new_category = Category(lst[0], float(lst[1]))
         new_category.current_total_expenses = float(lst[2])
         new_category.amount_left = float(lst[3])

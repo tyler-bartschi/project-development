@@ -55,6 +55,13 @@
             "name": "test_budget.py::test_category_basic",
             "output": "\n",
             "visibility": "visible"
+        },
+        {
+            "score": 0,
+            "max_score": 0,
+            "name": "test_budget.py::test_build_categories",
+            "output": "\n",
+            "visibility": "visible"
         }
     ]
 }
