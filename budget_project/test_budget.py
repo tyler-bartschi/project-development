@@ -226,11 +226,15 @@ def test_category_basic():
     assert budget1.amount_left == 1950.0
     assert budget1.category_dict["Test1"].current_total_expenses == 50.0
     assert budget1.category_dict['Test1'].amount_left == 50.0
-    assert budget1.category_dict['Test1'].expense_list == [("Expenditure", 50.0)]
-    assert budget1.expense_list == [("Expenditure belonging to the category Test1", 50.0)]
-    budget1.update_category_amount(100, budget1.category_dict["Test2"], method="income", name="Paycheck")
+    assert budget1.category_dict['Test1'].expense_list == [
+        ("Expenditure", 50.0)]
+    assert budget1.expense_list == [
+        ("Expenditure belonging to the category Test1", 50.0)]
+    budget1.update_category_amount(
+        100, budget1.category_dict["Test2"], method="income", name="Paycheck")
     assert budget1.category_dict["Test2"].income == 600.0
     assert budget1.category_dict["Test2"].amount_left == 600.0
+
 
 def test_build_categories():
     budget1 = Budget("10/22/23", 2000)
@@ -238,7 +242,8 @@ def test_build_categories():
     budget1.create_category("2", 200)
     budget1.create_category("3", 300)
 
-    expected = ["Category.build_category(['1', 100.0, 0.0, 100.0, [], []])","Category.build_category(['2', 200.0, 0.0, 200.0, [], []])", "Category.build_category(['3', 300.0, 0.0, 300.0, [], []])"]
+    expected = ["Category.build_category(['1', 100.0, 0.0, 100.0, [], []])", "Category.build_category(['2', 200.0, 0.0, 200.0, [], []])",
+                "Category.build_category(['3', 300.0, 0.0, 300.0, [], []])"]
     assert budget1.store_categories() == expected
 
     budget2 = Budget("20/3/44", 1000)
