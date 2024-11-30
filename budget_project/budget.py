@@ -238,10 +238,10 @@ class Savings():
         self.saving = float(amount)
 
     def __str__(self):
-        return f"Total Savings: {self.amount}"
+        return f"Total Savings: {self.saving}"
 
     def __repr__(self):
-        return f"Savings({self.amount})"
+        return f"Savings({self.saving})"
 
     def update_savings(self, amount):
         """Updates the savings by the specific amount."""
