@@ -4,4 +4,6 @@ project(compress)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(compress
-    main.cpp)
+    main.cpp
+        Token.h
+        Scanner.h)
