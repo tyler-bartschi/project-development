@@ -6,8 +6,17 @@ using std::ifstream, std::ofstream;
 using std::stringstream;
 #include <string>
 using std::string;
+#include <unordered_map>
+using std::unordered_map;
+#include "Token.h"
 
-int main(int argc, char* argv[]) {
+const unordered_map<TokenType, string> token_lookup = {
+    {STRING, "STRING"},
+    {DIGIT, "DIGIT"},
+    {SINGLE, "SINGLE"},
+};
+
+int main(int argc, char *argv[]) {
     if (argc != 3) {
         cerr << "Invalid number of arguments." << endl;
         cerr << "Usage: ./<executable> <infile> <outfile>" << endl;
@@ -26,4 +35,5 @@ int main(int argc, char* argv[]) {
     string input = ss.str();
     in.close();
 
+    return 0;
 }
