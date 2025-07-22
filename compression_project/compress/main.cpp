@@ -6,9 +6,12 @@ using std::ifstream, std::ofstream;
 using std::stringstream;
 #include <string>
 using std::string;
+#include <unordered_set>
+using std::unordered_set;
 #include <unordered_map>
 using std::unordered_map;
 #include "Token.h"
+#include "Scanner.h"
 
 const unordered_map<TokenType, string> token_lookup = {
     // map of TokenTypes to strings, intended for the str() method of Token
@@ -16,6 +19,13 @@ const unordered_map<TokenType, string> token_lookup = {
     {DIGIT, "DIGIT"},
     {SINGLE, "SINGLE"},
     {EMPTY, "EMPTY"},
+};
+
+const unordered_set<string> single_values = {
+    // set of all single values for Tokens
+    "~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
+    "-", "_", "=", "+", "[", "]", "{", "}", "|", "\\", ":", ";",
+    "'", "\"", ",", "<", ".", ">", "/", "?"
 };
 
 int main(int argc, char *argv[]) {
