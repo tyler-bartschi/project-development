@@ -40,15 +40,40 @@ public:
         return token_type;
     }
 
+    [[nodiscard]] string get_type_string() const {
+        return lookup(token_type);
+    }
+
     [[nodiscard]] string get_value() const {
         // returns the token's value
         return value;
     }
 
     [[nodiscard]] string str() const {
-        // returns a string representation of the token
         stringstream out;
-        out << "(" << lookup(token_type) << ",'" << value << "')";
+        out << "(" << lookup(token_type) << ",'";
+
+        for (const char &c : value) {
+            switch (c) {
+                case '\n':
+                    out << "\\n";
+                    break;
+                case '\t':
+                    out << "\\t";
+                    break;
+                case '\\':
+                    out << "\\\\";
+                    break;
+                case '\'':
+                    out << "\\'";
+                    break;
+                default:
+                    out << c;
+            }
+        }
+
+        out << "')";
         return out.str();
     }
+
 };

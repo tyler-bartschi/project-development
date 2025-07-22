@@ -21,32 +21,35 @@ const unordered_map<TokenType, string> token_lookup = {
     {EMPTY, "EMPTY"},
 };
 
-const unordered_set<string> single_values = {
+const unordered_set<char> single_values = {
     // set of all single values for Tokens
-    "~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
-    "-", "_", "=", "+", "[", "]", "{", "}", "|", "\\", ":", ";",
-    "'", "\"", ",", "<", ".", ">", "/", "?", " ", "\n", "\t"
+    '~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+    '-', '_', '=', '+', '[', ']', '{', '}', '|', '\\', ':', ';',
+    '\'', '"', ',', '<', '.', '>', '/', '?', ' ', '\n', '\t'
 };
 
 int main(int argc, char *argv[]) {
-    // if (argc != 3) {
-    //     cerr << "Invalid number of arguments." << endl;
-    //     cerr << "Usage: ./<executable> <infile> <outfile>" << endl;
-    //     return 1;
-    // }
-    //
-    // ifstream in;
-    // in.open(argv[1]);
-    // if (!in.is_open()) {
-    //     cerr << "Unable to open file: " << argv[1] << endl;
-    //     return 1;
-    // }
-    //
-    // stringstream ss;
-    // ss << in.rdbuf();
-    // string input = ss.str();
-    // in.close();
+    if (argc != 3) {
+        cerr << "Invalid number of arguments." << endl;
+        cerr << "Usage: ./<executable> <infile> <outfile>" << endl;
+        return 1;
+    }
 
+    ifstream in;
+    in.open(argv[1]);
+    if (!in.is_open()) {
+        cerr << "Unable to open file: " << argv[1] << endl;
+        return 1;
+    }
+
+    stringstream ss;
+    ss << in.rdbuf();
+    string input = ss.str();
+    in.close();
+
+    Scanner s(input);
+    s.tokenize();
+    cout << s.str() << endl;
 
     return 0;
 }

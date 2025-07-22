@@ -12,9 +12,11 @@ using std::unordered_set;
 using std::move;
 #include <cctype>
 using std::isalpha;
+#include <iostream>
+using std::endl;
 #include "Token.h"
 
-extern const unordered_set<string> single_values;
+extern const unordered_set<char> single_values;
 
 class Scanner {
 private:
@@ -28,10 +30,14 @@ public:
     vector<Token> tokenize() {
         stringstream value;
         TokenType current_type = EMPTY;
-        for (auto const &c : input) {
+        for (auto const &c: input) {
             string character{c};
 
-            if (single_values.contains(character)) {
+            if (c == '\r') {
+                continue;
+            }
+
+            if (single_values.contains(c)) {
                 if (current_type == EMPTY) {
                     tokens.emplace_back(SINGLE, character);
                 } else {
@@ -64,11 +70,28 @@ public:
                     tokens.emplace_back(current_type, value.str());
                     value.str("");
                     value.clear();
+                    current_type = DIGIT;
                     value << character;
                 }
             }
         }
-        tokens.emplace_back(current_type, value.str());
+
+        if (current_type != EMPTY) {
+            tokens.emplace_back(current_type, value.str());
+        }
+
         return tokens;
+    }
+
+    [[nodiscard]] vector<Token> get_tokens() const {
+        return tokens;
+    }
+
+    [[nodiscard]] string str() const {
+        stringstream out;
+        for (auto const &token : tokens) {
+            out << token.str() << endl;
+        }
+        return out.str();
     }
 };
