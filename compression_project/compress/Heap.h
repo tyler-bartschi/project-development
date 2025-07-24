@@ -76,7 +76,7 @@ private:
             const int left_size = _array[left].get_freq();
             const int current_size = _array[index].get_freq();
             if (current_size < right_size && current_size < left_size) {
-                if (left_size < right_size) {
+                if (left_size > right_size) {
                     // swap with left
                     swap(index, left);
                     index = left;
