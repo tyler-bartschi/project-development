@@ -13,6 +13,8 @@ private:
     int freq;
 
 public:
+    Tuple() = default;
+
     Tuple(string value, int freq) : value(move(value)), freq(move(freq)) {
     }
 
