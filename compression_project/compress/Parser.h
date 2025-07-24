@@ -29,9 +29,17 @@ private:
 
 public:
     explicit Parser (vector<Token> input) : input(move(input)) {
+        generate_frequencies();
     }
 
-
+    [[nodiscard]] string print_frequencies() const {
+        // returns a string representation of the frequencies
+        stringstream out;
+        for (auto const &item : frequencies) {
+            out << "('" << item.first << "'," << item.second << ")" << endl;
+        }
+        return out.str();
+    }
 
 
 };

@@ -10,8 +10,11 @@ using std::string;
 using std::unordered_set;
 #include <unordered_map>
 using std::unordered_map;
+#include <vector>
+using std::vector;
 #include "Token.h"
 #include "Scanner.h"
+#include "Parser.h"
 
 const unordered_map<TokenType, string> token_lookup = {
     // map of TokenTypes to strings, intended for the str() method of Token
@@ -48,8 +51,12 @@ int main(int argc, char *argv[]) {
     in.close();
 
     Scanner s(input);
-    s.tokenize();
-    cout << s.str() << endl;
+    vector<Token> tokens = s.tokenize();
+    // cout << s.str() << endl;
+
+    Parser p(tokens);
+    cout << p.print_frequencies() << endl;
+
 
     return 0;
 }
