@@ -31,24 +31,21 @@ private:
     }
 
     void _heapify_up() {
-        int index = _size;
-        while (_array[index].get_freq() > _array[_parent(index)].get_freq()) {
+        int index = _size - 1;
+        while (index > 0 && _array[index].get_freq() > _array[_parent(index)].get_freq()) {
             const int parent = _parent(index);
             swap(parent, index);
             index = parent;
         }
     }
 
-    void swap(int const &index1, int const &index2) const {
+    void swap(int const &index1, int const &index2) {
         Tuple tmp = _array[index1];
         _array[index1] = _array[index2];
         _array[index2] = tmp;
     }
 
     void _heapify_down() {
-        _array[0] = _array[_size];
-        _size--;
-
         int index = 0;
         bool going = true;
         while (going) {
@@ -116,13 +113,24 @@ public:
             _grow();
         }
         _array[_size] = item;
-        _heapify_up();
         _size++;
+        _heapify_up();
     }
 
     Tuple pop() {
+        if (_size == 0) {
+            throw std::out_of_range("Heap is empty");
+        }
         Tuple top = _array[0];
-        _heapify_down();
+        _size--;
+        if (_size > 0) {
+            _array[0] = _array[_size];
+            _heapify_down();
+        }
         return top;
+    }
+
+    void clear() {
+        _size = 0;
     }
 };
