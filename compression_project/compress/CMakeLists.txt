@@ -8,4 +8,5 @@ add_executable(compress
         Token.h
         Scanner.h
         Parser.h
-        Tuple.h)
+        Tuple.h
+        Heap.h)
