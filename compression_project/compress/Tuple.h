@@ -17,14 +17,17 @@ public:
     }
 
     [[nodiscard]] string get_value() const {
+        // gets the value stored
         return value;
     }
 
     [[nodiscard]] int get_freq() const {
+        // gets the frequency stored
         return freq;
     }
 
     [[nodiscard]] string str() const {
+        // returns the string representation of a tuple
         stringstream out;
         out << "(" << value << "," << freq << ")";
         return out.str();
