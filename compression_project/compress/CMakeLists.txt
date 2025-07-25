@@ -9,4 +9,5 @@ add_executable(compress
         Scanner.h
         Parser.h
         Tuple.h
-        Heap.h)
+        Heap.h
+        test_heap/test-heap.cpp)

@@ -4,3 +4,5 @@
 /compression_project/compress/.idea
 /compression_project/compress/cmake-build-debug
 compression_project/compress/program
+/compression_project/.idea
+compression_project/compress/test_heap/testing
