@@ -55,8 +55,14 @@ int main(int argc, char *argv[]) {
     // cout << s.str() << endl;
 
     Parser p(tokens);
-    cout << p.print_frequencies() << endl;
-
+    // cout << p.print_frequencies() << endl;
+    Heap &tuples = p.generate_compressibles();
+    int size = tuples.size();
+    cout << size << endl;
+    for (int i = 0; i < size; i++) {
+        Tuple next = tuples.pop();
+        cout << next.str() << endl;
+    }
 
     return 0;
 }

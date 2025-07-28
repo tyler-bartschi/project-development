@@ -12,11 +12,13 @@ using std::move;
 using std::vector;
 #include "Token.h"
 #include "Tuple.h"
+#include "Heap.h"
 
 class Parser {
 private:
     vector<Token> input;
     unordered_map<string, int> frequencies;
+    Heap compressible_tokens;
 
     void generate_frequencies() {
         for (auto const& t : input) {
@@ -41,5 +43,15 @@ public:
         return out.str();
     }
 
+    [[nodiscard]] Heap& generate_compressibles() {
+        for (auto const & item : frequencies) {
+            Tuple new_item(item.first, item.second);
+            compressible_tokens.insert(new_item);
+        }
+        return compressible_tokens;
+    }
 
+    [[nodiscard]] Heap& get_compressible() {
+        return compressible_tokens;
+    }
 };
