@@ -15,6 +15,7 @@ using std::vector;
 #include "Token.h"
 #include "Scanner.h"
 #include "Parser.h"
+#include "Compressor.h"
 
 const unordered_map<TokenType, string> token_lookup = {
     // map of TokenTypes to strings, intended for the str() method of Token
@@ -57,12 +58,12 @@ int main(int argc, char *argv[]) {
     Parser p(tokens);
     // cout << p.print_frequencies() << endl;
     Heap &tuples = p.generate_compressibles();
-    int size = tuples.size();
-    cout << size << endl;
-    for (int i = 0; i < size; i++) {
-        Tuple next = tuples.pop();
-        cout << next.str() << endl;
+    Compressor c;
+    const unordered_map<string, string> compressed = c.compress(tuples);
+    for (auto const & item : compressed) {
+        cout << "String: " << item.first << ", Compression: " << item.second << endl;
     }
+
 
     return 0;
 }

@@ -15,7 +15,7 @@ private:
 public:
     Tuple() = default;
 
-    Tuple(string value, int freq) : value(move(value)), freq(move(freq)) {
+    Tuple(string value, const int &freq) : value(move(value)), freq(freq) {
     }
 
     [[nodiscard]] string get_value() const {

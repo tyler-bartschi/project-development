@@ -10,4 +10,6 @@ add_executable(compress
         Parser.h
         Tuple.h
         Heap.h
-        test_heap/test-heap.cpp)
+        test_heap/test-heap.cpp
+        Compressor.h
+        test.cpp)
