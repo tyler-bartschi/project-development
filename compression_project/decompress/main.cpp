@@ -44,5 +44,7 @@ int main(int argc, char* argv[]) {
     string input = ss.str();
     in.close();
 
+    Scanner s(input);
+    cout << s.str() << endl;
 
 }

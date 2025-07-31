@@ -23,7 +23,11 @@ private:
     unordered_map<string, string> decoding_table;
 
     void generate_encoding_table() {
-
+        string raw_table;
+        stringstream in;
+        in << input;
+        getline(in, raw_table, ']');
+        cout << "contents of raw_table: " << raw_table << endl;
     }
 
     void tokenize() {
