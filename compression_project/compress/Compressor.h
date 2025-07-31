@@ -52,11 +52,11 @@ private:
 
     string compression_map_str(const unordered_map<string, string> &m) {
         stringstream out;
-        out << "[[";
+        out << "[";
         for (auto const &item : m) {
             out << "(" << item.first << "," << item.second << ")";
         }
-        out << "]]";
+        out << "]";
         return out.str();
     }
 

@@ -8,6 +8,8 @@ using std::string;
 using std::stringstream;
 #include <unordered_map>
 using std::unordered_map;
+#include <unordered_set>
+using std::unordered_set;
 #include "Scanner.h"
 #include "Token.h"
 
@@ -18,6 +20,10 @@ const unordered_map<TokenType, string> lookup_table = {
     {EMPTY, "EMPTY"}
 };
 
+const unordered_set<char> single_values = {
+    '~', '`', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[',
+    ']', '{', '}', ';', ':', '"', '\'', '|', '\\', ',', '<', '.', '>', '?', '/'
+};
 
 int main(int argc, char* argv[]) {
     if (argc != 3) {
