@@ -60,10 +60,17 @@ int main(int argc, char *argv[]) {
     Heap &tuples = p.generate_compressibles();
     Compressor c;
     const unordered_map<string, string> compressed = c.compress(tuples);
-    for (auto const & item : compressed) {
-        cout << "String: " << item.first << ", Compression: " << item.second << endl;
-    }
 
+    const string result = c.compress_tokens(tokens, compressed);
+
+    ofstream out;
+    out.open(argv[2]);
+    if (!out.is_open()) {
+        cerr << "Unable to open file: " << argv[2] << endl;
+        return 1;
+    }
+    out << result;
+    out.close();
 
     return 0;
 }

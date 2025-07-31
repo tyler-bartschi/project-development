@@ -77,7 +77,7 @@ public:
         return compressed;
     }
 
-    [[nodiscard]] string compress_string(const vector<Token> &tokens, const unordered_map<string, string> &compression_map ) {
+    [[nodiscard]] string compress_tokens(const vector<Token> &tokens, const unordered_map<string, string> &compression_map ) {
         stringstream out;
         out << compression_map_str(compression_map) << endl;
         for (auto const & token : tokens) {
