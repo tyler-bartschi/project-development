@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(decompress
         main.cpp
-        Scanner.h)
+        Scanner.h
+        Token.h)
