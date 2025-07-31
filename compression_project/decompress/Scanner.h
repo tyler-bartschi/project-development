@@ -23,11 +23,10 @@ private:
     unordered_map<string, string> decoding_table;
 
     void generate_encoding_table() {
-        string raw_table;
-        stringstream in;
-        in << input;
-        getline(in, raw_table, ']');
-        cout << "contents of raw_table: " << raw_table << endl;
+        if (input.at(0) != '[') {
+            throw std::invalid_argument("Not a valid compressed file");
+        }
+        // this needs to generate the table
     }
 
     void tokenize() {
@@ -102,6 +101,7 @@ private:
 public:
     explicit Scanner(string input) : input(move(input)) {
         tokenize();
+
     }
 
     [[nodiscard]] vector<Token> get_tokens() const {

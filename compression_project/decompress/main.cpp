@@ -44,7 +44,12 @@ int main(int argc, char* argv[]) {
     string input = ss.str();
     in.close();
 
-    Scanner s(input);
-    cout << s.str() << endl;
+    try {
+        Scanner s(input);
+        cout << s.str() << endl;
+    } catch (const std::exception& e) {
+        cerr << "An error occured: " << e.what() << endl;
+        return 1;
+    }
 
 }
