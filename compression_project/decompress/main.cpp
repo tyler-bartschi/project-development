@@ -12,6 +12,7 @@ using std::unordered_map;
 using std::unordered_set;
 #include "Scanner.h"
 #include "Token.h"
+#include "Decompressor.h"
 
 const unordered_map<TokenType, string> lookup_table = {
     {SINGLE, "SINGLE"},
@@ -46,10 +47,19 @@ int main(int argc, char* argv[]) {
 
     try {
         Scanner s(input);
-        cout << s.str() << endl;
+        string decompressed_file = Decompressor::decompress(s.get_tokens(), s.get_decoding_table());
+        ofstream out;
+        out.open(argv[2]);
+        if (!out.is_open()) {
+            cerr << "Unable to open file: " << argv[2] << endl;
+            return 1;
+        }
+        out << decompressed_file;
+        out.close();
     } catch (const std::exception& e) {
-        cerr << "An error occured: " << e.what() << endl;
+        cerr << "An error occurred: " << e.what() << endl;
         return 1;
     }
 
+    return 0;
 }

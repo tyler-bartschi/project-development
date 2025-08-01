@@ -140,11 +140,11 @@ public:
 
     }
 
-    [[nodiscard]] vector<Token> get_tokens() const {
+    [[nodiscard]] vector<Token>& get_tokens() {
         return tokens;
     }
 
-    [[nodsicard]] unordered_map<string, string> get_decoding_table() const {
+    [[nodsicard]] unordered_map<string, string>& get_decoding_table() {
         return decoding_table;
     }
 
