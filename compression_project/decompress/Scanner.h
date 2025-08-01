@@ -144,7 +144,7 @@ public:
         return tokens;
     }
 
-    [[nodsicard]] unordered_map<string, string>& get_decoding_table() {
+    [[nodiscard]] unordered_map<string, string>& get_decoding_table() {
         return decoding_table;
     }
 

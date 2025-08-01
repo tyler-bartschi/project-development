@@ -55,8 +55,7 @@ int main(int argc, char* argv[]) {
             return 1;
         }
         out << decompressed_file;
-        out.close();
-    } catch (const std::exception& e) {
+        out.close();    } catch (const std::exception& e) {
         cerr << "An error occurred: " << e.what() << endl;
         return 1;
     }
