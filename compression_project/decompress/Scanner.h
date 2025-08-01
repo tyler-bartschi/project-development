@@ -26,7 +26,43 @@ private:
         if (input.at(0) != '[') {
             throw std::invalid_argument("Not a valid compressed file");
         }
-        // this needs to generate the table
+
+        int index = 0;
+        stringstream value;
+        stringstream compressed_value;
+        string current_type;
+        while (input.at(index) != ']') {
+            char cur = input.at(index++);
+            switch (cur) {
+                case ('('):
+                    current_type = "string";
+                    break;
+                case (','):
+                    current_type = "compressed";
+                    break;
+                case (')'):
+                    current_type = "";
+                    decoding_table[compressed_value.str()] = value.str();
+                    value.str("");
+                    value.clear();
+                    compressed_value.str("");
+                    compressed_value.clear();
+                    break;
+                default:
+                    if (current_type == "string") {
+                        value << cur;
+                    } else if (current_type == "compressed") {
+                        compressed_value << cur;
+                    }
+                    break;
+            }
+        }
+        index += 3;
+        stringstream new_input;
+        for (size_t i = index; i < input.size(); i++) {
+            new_input << input.at(i);
+        }
+        input = new_input.str();
     }
 
     void tokenize() {
@@ -114,6 +150,11 @@ public:
 
     [[nodiscard]] string str() const {
         stringstream out;
+        out << "Decoding map" << endl;
+        for (auto const & item : decoding_table) {
+            out << "('" << item.first << "','" << item.second << "')" << endl;
+        }
+        out << endl << "Tokens" << endl;
         for (auto const &token: tokens) {
             out << token.str() << endl;
         }

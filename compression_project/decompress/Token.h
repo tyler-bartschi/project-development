@@ -45,7 +45,7 @@ public:
 
     [[nodiscard]] string str() const {
         stringstream out;
-        out << "(" << lookup(t_type) << ",";
+        out << "(" << lookup(t_type) << ",'";
 
         for (const char &c: value) {
             switch (c) {
