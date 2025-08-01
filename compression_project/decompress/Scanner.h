@@ -156,7 +156,9 @@ public:
         }
         out << endl << "Tokens" << endl;
         for (auto const &token: tokens) {
-            out << token.str() << endl;
+            if (token.get_type() == STRING && token.get_value() == "a") {
+                out << token.str() << endl;
+            }
         }
         return out.str();
     }

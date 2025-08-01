@@ -47,6 +47,9 @@ int main(int argc, char* argv[]) {
 
     try {
         Scanner s(input);
+        cout << s.str() << endl;
+        // issue is that scanner thinks numbers are different tokens than the rest of the actual token value
+        // fix scanner tokenizer function to properly tokenize
         string decompressed_file = Decompressor::decompress(s.get_tokens(), s.get_decoding_table());
         ofstream out;
         out.open(argv[2]);
