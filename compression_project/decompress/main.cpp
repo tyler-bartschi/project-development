@@ -26,7 +26,7 @@ const unordered_set<char> single_values = {
     ']', '{', '}', ';', ':', '"', '\'', '|', '\\', ',', '<', '.', '>', '?', '/', '\n', ' '
 };
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     if (argc != 3) {
         cerr << "Invalid number of arguments." << endl;
         cerr << "Usage: ./<executable> <infile> <outfile>" << endl;
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
 
     try {
         Scanner s(input);
-        cout << s.str() << endl;
+        // cout << s.str() << endl;
         // issue is that scanner thinks numbers are different tokens than the rest of the actual token value
         // fix scanner tokenizer function to properly tokenize
         string decompressed_file = Decompressor::decompress(s.get_tokens(), s.get_decoding_table());
@@ -58,7 +58,8 @@ int main(int argc, char* argv[]) {
             return 1;
         }
         out << decompressed_file;
-        out.close();    } catch (const std::exception& e) {
+        out.close();
+    } catch (const std::exception &e) {
         cerr << "An error occurred: " << e.what() << endl;
         return 1;
     }

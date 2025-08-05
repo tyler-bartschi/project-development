@@ -19,7 +19,7 @@ public:
         for (auto const & token : tokens) {
             if (token.get_type() == SINGLE) {
                 out << token.get_value();
-            } else if (token.get_type() == DIGIT || token.get_type() == STRING) {
+            } else if (token.get_type() == STRING) {
                 out << decoding_table.at(token.get_value());
             }
         }

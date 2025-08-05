@@ -57,7 +57,7 @@ private:
                     break;
             }
         }
-        index += 3;
+        index += 2;
         stringstream new_input;
         for (size_t i = index; i < input.size(); i++) {
             new_input << input.at(i);
@@ -91,38 +91,21 @@ private:
                     value.clear();
                     tokens.emplace_back(SINGLE, character);
                 }
-            } else if (isalpha(c)) {
-                // current character is an alphabetical character, and should be part of a STRING token
+            } else {
+                // character is not SINGLE, therefore must be STRING
                 if (current_type == EMPTY) {
-                    // no current token, so begin creating a STRING token
+                    // no current token, begin creating a STRING token
                     current_type = STRING;
                     value << character;
                 } else if (current_type == STRING) {
-                    // STRING token is currently available, just add the character to the token
+                    // current token is a STRING, so just add the character
                     value << character;
                 } else {
-                    // a different token is currently processing, add the current token, clear and reset, then begin the STRING token
+                    // different token in processing, add the current token, clear and reset, begin the STRING token
                     tokens.emplace_back(current_type, value.str());
                     value.str("");
                     value.clear();
                     current_type = STRING;
-                    value << character;
-                }
-            } else {
-                // character is not STRING or SINGLE, therefore must be DIGIT
-                if (current_type == EMPTY) {
-                    // no current token, begin creating a DIGIT token
-                    current_type = DIGIT;
-                    value << character;
-                } else if (current_type == DIGIT) {
-                    // current token is a DIGIT, so just add the character
-                    value << character;
-                } else {
-                    // different token in processing, add the current token, clear and reset, begin the DIGIT token
-                    tokens.emplace_back(current_type, value.str());
-                    value.str("");
-                    value.clear();
-                    current_type = DIGIT;
                     value << character;
                 }
             }
