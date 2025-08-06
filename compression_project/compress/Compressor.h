@@ -53,8 +53,14 @@ private:
     string compression_map_str(const unordered_map<string, string> &m) {
         stringstream out;
         out << "[";
+        int count = 0;
         for (auto const &item : m) {
             out << "(" << item.first << "," << item.second << ")";
+            count++;
+            if (count == 10) {
+                out << endl;
+                count = 0;
+            }
         }
         out << "]";
         return out.str();
