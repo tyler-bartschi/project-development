@@ -36,11 +36,6 @@ public:
             // conversion to string to properly create token objects
             string character{c};
 
-            if (c == '\r') {
-                // ignore \r
-                continue;
-            }
-
             if (single_values.contains(c)) {
                 // character is of the SINGLE type
                 if (current_type == EMPTY) {

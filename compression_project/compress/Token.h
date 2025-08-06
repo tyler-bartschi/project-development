@@ -67,6 +67,9 @@ public:
                 case '\'':
                     out << "\\'";
                     break;
+                case '\r':
+                    out << "\\r";
+                    break;
                 default:
                     out << c;
             }

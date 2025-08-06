@@ -74,10 +74,6 @@ private:
         for (auto const &c: input) {
             string character{c};
 
-            if (c == '\r') {
-                continue;
-            }
-
             if (single_values.contains(c)) {
                 // character is of the SINGLE type
                 if (current_type == EMPTY) {
