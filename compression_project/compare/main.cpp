@@ -38,11 +38,11 @@ void size_comparison(const string &data_1, const string &data_2, const fs::path 
     cout << endl;
 
     if (size_one < size_two) {
-        const float ratio = (static_cast<float>(size_one) / size_two) * 100;
+        const float ratio = (static_cast<float>(size_one) / static_cast<float>(size_two)) * 100;
         cout << path_name_one << " is smaller than " << path_name_two << "." << endl;
         cout << path_name_one << " is " << ratio << "% the size of " << path_name_two << endl;
     } else if (size_two < size_one) {
-        const float ratio = (static_cast<float>(size_two) / size_one) * 100;
+        const float ratio = (static_cast<float>(size_two) / static_cast<float>(size_one)) * 100;
         cout << path_name_two << " is smaller than " << path_name_one << "." << endl;
         cout << path_name_two << " is " << ratio << "% the size of " << path_name_one << endl;
     } else {
