@@ -11,7 +11,7 @@ using std::stringstream;
 namespace fs = std::filesystem;
 
 bool is_text_file(const fs::path &file_path, const size_t &check_size = 4096) {
-    ifstream in (file_path, std::ios::binary);
+    ifstream in(file_path, std::ios::binary);
 
     if (!in.is_open()) {
         return false;
@@ -48,7 +48,23 @@ void size_comparison(const string &data_1, const string &data_2, const fs::path 
     } else {
         cout << path_name_one << " and " << path_name_two << " are the same size." << endl;
     }
+}
 
+void character_comparison(const string &data_1, const string &data_2) {
+    size_t count_1 = 0;
+    size_t count_2 = 0;
+
+    while (count_1 < data_1.size() && count_2 < data_2.size()) {
+        if (data_1[count_1++] != data_2[count_2++]) {
+            cout << "Characters in files/folders do not match exactly." << endl;
+            return;
+        }
+    }
+    if (count_1 < data_1.size() || count_2 < data_2.size()) {
+        cout << "Characters in files/folders do not match exactly." << endl;
+    } else {
+        cout << "Characters in files/folders match exactly." << endl;
+    }
 }
 
 int read_file(const fs::path &path, stringstream &stream) {
@@ -72,7 +88,7 @@ int read_file(const fs::path &path, stringstream &stream) {
 
     bool need_endl = false;
 
-    for (const auto &item : fs::recursive_directory_iterator(path)) {
+    for (const auto &item: fs::recursive_directory_iterator(path)) {
         if (fs::is_regular_file(item)) {
             if (is_text_file(item)) {
                 in.open(item.path());
@@ -104,7 +120,7 @@ int check_args(const fs::path &path1, const fs::path &path2) {
     return 0;
 }
 
-int main(const int argc, char* argv[]) {
+int main(const int argc, char *argv[]) {
     if (argc != 3) {
         cerr << "Incorrect arguments. Requires two folders or files to analyze." << endl;
         return 1;
@@ -122,21 +138,21 @@ int main(const int argc, char* argv[]) {
     if (read_file(input1, ss) != 0) {
         return 2;
     }
-    string data_1 = ss.str();
+    const string data_1 = ss.str();
     ss.clear();
     ss.str("");
 
     if (read_file(input2, ss) != 0) {
         return 2;
     }
-    string data_2 = ss.str();
+    const string data_2 = ss.str();
 
     cout << "Would you like to perform an exact character comparison? (y/n)" << endl;
     string user_input;
     cin >> user_input;
 
     if (user_input == "y" || user_input == "Y") {
-        // perform character comparison
+        character_comparison(data_1, data_2);
     }
 
     cout << endl << "Would you like to perform a size comparison? (y/n)" << endl;
