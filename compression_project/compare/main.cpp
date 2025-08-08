@@ -10,7 +10,22 @@ using std::stringstream;
 
 namespace fs = std::filesystem;
 
-bool is_text_file(const string &input) {
+bool is_text_file(const fs::path &file_path, const size_t &check_size = 4096) {
+    ifstream in (file_path, std::ios::binary);
+
+    if (!in.is_open()) {
+        return false;
+    }
+
+    size_t count = 0;
+    char ch;
+
+    while (count < check_size && in.get(ch)) {
+        if (ch == '\0') {
+            return false;
+        }
+        count++;
+    }
     return true;
 }
 
@@ -40,7 +55,10 @@ int read_file(const fs::path &path, stringstream &stream) {
     ifstream in;
 
     if (fs::is_regular_file(path)) {
-        // add a check in here that verifies that it is a text file, before reading it into the stream, check for null bytes
+        if (!is_text_file(path)) {
+            cerr << "Invalid argument: " << path.filename().string() << " is not a text file." << endl;
+            return 2;
+        }
         in.open(path);
         stream << in.rdbuf();
         in.close();
@@ -52,14 +70,25 @@ int read_file(const fs::path &path, stringstream &stream) {
         return 2;
     }
 
+    bool need_endl = false;
+
     for (const auto &item : fs::recursive_directory_iterator(path)) {
         if (fs::is_regular_file(item)) {
-            // add a check in here that verifies that it is a text file, before reading it into the stream
-            in.open(item.path());
-            stream << in.rdbuf();
-            in.close();
+            if (is_text_file(item)) {
+                in.open(item.path());
+                stream << in.rdbuf();
+                in.close();
+            } else {
+                cout << "Ignored " << item.path().filename().string() << " because it is not a text file." << endl;
+                need_endl = true;
+            }
         }
     }
+
+    if (need_endl) {
+        cout << endl;
+    }
+
     return 0;
 }
 
@@ -102,7 +131,7 @@ int main(const int argc, char* argv[]) {
     }
     string data_2 = ss.str();
 
-    cout << "Would you like to perform a character comparison? (y/n)" << endl;
+    cout << "Would you like to perform an exact character comparison? (y/n)" << endl;
     string user_input;
     cin >> user_input;
 
