@@ -94,6 +94,8 @@ void do_file_compression(const string &input, const fs::path &output) {
     check_if_open(out, output.filename().string());
     out << result;
     out.close();
+
+    cout << "Compression complete." << endl;
 }
 
 unordered_map<string, string> get_compressed_map(const fs::path &input) {
@@ -162,7 +164,8 @@ void do_folder_compression(const fs::path &input, const fs::path &output) {
 
     // then, write the compressible map file
     if (fs::exists(output)) {
-        cout << "Warning: " << output.filename().string() << " already exists. Proceeding with compression will delete all content currently in the folder." << endl;
+        cout << "Warning: " << output.filename().string() <<
+                " already exists. Proceeding with compression will delete all content currently in the folder." << endl;
         cout << "Would you like to proceed? (y/n) ";
         string user_input;
         cin >> user_input;
@@ -196,10 +199,53 @@ void do_folder_compression(const fs::path &input, const fs::path &output) {
             }
         }
     }
+
+    cout << "Compression complete." << endl;
 }
 
 void do_file_to_folder_compression(const fs::path &input, const fs::path &output) {
+    ifstream in;
+    in.open(input);
+    check_if_open(in, input.filename().string());
 
+    stringstream ss;
+    ss << in.rdbuf();
+    in.close();
+
+    Scanner s(ss.str());
+    const vector<Token> tokens = s.tokenize();
+
+    Parser p(tokens);
+    Heap &tuples = p.generate_compressibles();
+
+    Compressor c;
+    const unordered_map<string, string> compressed_map = c.compress(tuples);
+
+    if (fs::exists(output)) {
+        cout << "Warning: " << output.filename().string() <<
+                " already exists. Proceeding with compression will delete all content currently in the folder." << endl;
+        cout << "Would you like to proceed? (y/n) ";
+        string user_input;
+        cin >> user_input;
+        if (user_input == "n" || user_input == "N") {
+            return;
+        }
+        fs::remove_all(output);
+    }
+
+    fs::path map_file = output / "map.compressed";
+    fs::create_directories(map_file.parent_path());
+    ofstream out;
+    out.open(map_file);
+    check_if_open(out, map_file.filename().string());
+    out << Compressor::get_compression_map_str(compressed_map);
+    out.close();
+
+    fs::path destination = output / input.filename();
+    fs::create_directories(destination.parent_path());
+    compress_file(input, destination, compressed_map);
+
+    cout << "Compression complete." << endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -239,47 +285,16 @@ int main(int argc, char *argv[]) {
         do_folder_compression(input, output);
     } else if (fs::is_regular_file(input) && flag == "-d") {
         // file input, place into a folder for output
+        if (!is_text_file(input)) {
+            cerr << "Invalid argument: " << input.filename().string() << " is not a text file." << endl;
+            return 2;
+        }
         do_file_to_folder_compression(input, output);
     } else {
-        cerr << "Invalid arguments. Must be two files, two folders, or an input file and an output folder." << endl;
+        cerr << "Invalid arguments. Must be two files, two folders, or an input file and an output folder, along with the designating flag." << endl;
         cerr << "Cannot be an input folder and an output file." << endl;
         return 2;
     }
 
     return 0;
-
-    // ifstream in;
-    // in.open(argv[1]);
-    // if (!in.is_open()) {
-    //     cerr << "Unable to open file: " << argv[1] << endl;
-    //     return 1;
-    // }
-    //
-    // stringstream ss;
-    // ss << in.rdbuf();
-    // string input = ss.str();
-    // in.close();
-    //
-    // Scanner s(input);
-    // vector<Token> tokens = s.tokenize();
-    // // cout << s.str() << endl;
-    //
-    // Parser p(tokens);
-    // // cout << p.print_frequencies() << endl;
-    // Heap &tuples = p.generate_compressibles();
-    // Compressor c;
-    // const unordered_map<string, string> compressed = c.compress(tuples);
-    //
-    // const string result = c.compress_tokens(tokens, compressed);
-    //
-    // ofstream out;
-    // out.open(argv[2]);
-    // if (!out.is_open()) {
-    //     cerr << "Unable to open file: " << argv[2] << endl;
-    //     return 1;
-    // }
-    // out << result;
-    // out.close();
-    //
-    // return 0;
 }
