@@ -1,5 +1,5 @@
 #include <iostream>
-using std::cout, std::cerr, std::endl;
+using std::cout, std::cerr, std::endl, std::cin;
 #include <fstream>
 using std::ifstream, std::ofstream;
 #include <sstream>
@@ -161,6 +161,17 @@ void do_folder_compression(const fs::path &input, const fs::path &output) {
     const unordered_map<string, string> compressed_map = get_compressed_map(input);
 
     // then, write the compressible map file
+    if (fs::exists(output)) {
+        cout << "Warning: " << output.filename().string() << " already exists. Proceeding with compression will delete all content currently in the folder." << endl;
+        cout << "Would you like to proceed? (y/n) ";
+        string user_input;
+        cin >> user_input;
+        if (user_input == "n" || user_input == "N") {
+            return;
+        }
+        fs::remove_all(output);
+    }
+
     fs::path map_file = output / "map.compressed";
     fs::create_directories(map_file.parent_path());
     ofstream out;
@@ -185,6 +196,10 @@ void do_folder_compression(const fs::path &input, const fs::path &output) {
             }
         }
     }
+}
+
+void do_file_to_folder_compression(const fs::path &input, const fs::path &output) {
+
 }
 
 int main(int argc, char *argv[]) {
@@ -224,6 +239,7 @@ int main(int argc, char *argv[]) {
         do_folder_compression(input, output);
     } else if (fs::is_regular_file(input) && flag == "-d") {
         // file input, place into a folder for output
+        do_file_to_folder_compression(input, output);
     } else {
         cerr << "Invalid arguments. Must be two files, two folders, or an input file and an output folder." << endl;
         cerr << "Cannot be an input folder and an output file." << endl;
