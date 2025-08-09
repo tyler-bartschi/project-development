@@ -21,7 +21,7 @@ private:
     Heap compressible_tokens;
 
     void generate_frequencies() {
-        for (auto const& t : input) {
+        for (auto const &t: input) {
             TokenType t_type = t.get_type();
             if (t_type == STRING || t_type == DIGIT) {
                 frequencies[t.get_value()]++;
@@ -30,28 +30,28 @@ private:
     }
 
 public:
-    explicit Parser (vector<Token> input) : input(move(input)) {
+    explicit Parser(vector<Token> input) : input(move(input)) {
         generate_frequencies();
     }
 
     [[nodiscard]] string print_frequencies() const {
         // returns a string representation of the frequencies
         stringstream out;
-        for (auto const &item : frequencies) {
+        for (auto const &item: frequencies) {
             out << "('" << item.first << "'," << item.second << ")" << endl;
         }
         return out.str();
     }
 
-    [[nodiscard]] Heap& generate_compressibles() {
-        for (auto const & item : frequencies) {
+    [[nodiscard]] Heap &generate_compressibles() {
+        for (auto const &item: frequencies) {
             Tuple new_item(item.first, item.second);
             compressible_tokens.insert(new_item);
         }
         return compressible_tokens;
     }
 
-    [[nodiscard]] Heap& get_compressible() {
+    [[nodiscard]] Heap &get_compressible() {
         return compressible_tokens;
     }
 };

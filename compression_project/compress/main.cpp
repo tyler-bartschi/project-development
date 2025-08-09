@@ -134,7 +134,8 @@ void move_file(const fs::path &source, const fs::path &destination) {
     out.close();
 }
 
-void compress_file(const fs::path &source, const fs::path &destination, const unordered_map<string, string> &compressed_map) {
+void compress_file(const fs::path &source, const fs::path &destination,
+                   const unordered_map<string, string> &compressed_map) {
     ifstream in;
     in.open(source);
     check_if_open(in, source.filename().string());

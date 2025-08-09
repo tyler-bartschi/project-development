@@ -54,7 +54,7 @@ private:
         stringstream out;
         out << "[";
         int count = 0;
-        for (auto const &item : m) {
+        for (auto const &item: m) {
             out << "(" << item.first << "," << item.second << ")";
             count++;
             if (count == 10) {
@@ -83,10 +83,11 @@ public:
         return compressed;
     }
 
-    [[nodiscard]] string compress_tokens(const vector<Token> &tokens, const unordered_map<string, string> &compression_map ) {
+    [[nodiscard]] string compress_tokens(const vector<Token> &tokens,
+                                         const unordered_map<string, string> &compression_map) {
         stringstream out;
         out << compression_map_str(compression_map) << endl;
-        for (auto const & token : tokens) {
+        for (auto const &token: tokens) {
             if (token.get_type() == SINGLE) {
                 out << token.get_value();
             } else if (token.get_type() == DIGIT || token.get_type() == STRING) {
@@ -96,9 +97,10 @@ public:
         return out.str();
     }
 
-    [[nodiscard]] static string compress_tokens_for_file(const vector<Token> &tokens, const unordered_map<string, string> &compression_map) {
+    [[nodiscard]] static string compress_tokens_for_file(const vector<Token> &tokens,
+                                                         const unordered_map<string, string> &compression_map) {
         stringstream out;
-        for (auto const &token : tokens) {
+        for (auto const &token: tokens) {
             if (token.get_type() == SINGLE) {
                 out << token.get_value();
             } else if (token.get_type() == DIGIT || token.get_type() == STRING) {

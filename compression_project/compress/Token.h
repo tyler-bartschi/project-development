@@ -53,7 +53,7 @@ public:
         stringstream out;
         out << "(" << lookup(token_type) << ",'";
 
-        for (const char &c : value) {
+        for (const char &c: value) {
             switch (c) {
                 case '\n':
                     out << "\\n";
@@ -78,5 +78,4 @@ public:
         out << "')";
         return out.str();
     }
-
 };

@@ -102,7 +102,7 @@ public:
     [[nodiscard]] string str() const {
         // returns the vector of token objects as a string with on Token object per line
         stringstream out;
-        for (auto const &token : tokens) {
+        for (auto const &token: tokens) {
             out << token.str() << endl;
         }
         return out.str();
