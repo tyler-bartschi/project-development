@@ -1,9 +1,0 @@
-hello
-hello
-hello
-goodbye
-hel
-1 [ I am very smart{yes}]
-no
-yes? maybe? ""
-I'm not fully sure actually.

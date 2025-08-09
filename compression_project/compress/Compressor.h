@@ -50,7 +50,7 @@ private:
         return new_string.str();
     }
 
-    string compression_map_str(const unordered_map<string, string> &m) {
+    static string compression_map_str(const unordered_map<string, string> &m) {
         stringstream out;
         out << "[";
         int count = 0;
@@ -93,6 +93,24 @@ public:
                 out << compression_map.at(token.get_value());
             }
         }
+        return out.str();
+    }
+
+    [[nodiscard]] static string compress_tokens_for_file(const vector<Token> &tokens, const unordered_map<string, string> &compression_map) {
+        stringstream out;
+        for (auto const &token : tokens) {
+            if (token.get_type() == SINGLE) {
+                out << token.get_value();
+            } else if (token.get_type() == DIGIT || token.get_type() == STRING) {
+                out << compression_map.at(token.get_value());
+            }
+        }
+        return out.str();
+    }
+
+    [[nodiscard]] static string get_compression_map_str(const unordered_map<string, string> &compression_map) {
+        stringstream out;
+        out << compression_map_str(compression_map) << endl;
         return out.str();
     }
 };
