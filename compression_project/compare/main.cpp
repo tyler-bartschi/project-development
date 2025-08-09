@@ -76,6 +76,10 @@ int read_file(const fs::path &path, stringstream &stream) {
             return 2;
         }
         in.open(path);
+        if (!in.is_open()) {
+            cerr << "An error occured opening file: " << path.filename().string() << endl;
+            return 2;
+        }
         stream << in.rdbuf();
         in.close();
         return 0;
@@ -92,6 +96,10 @@ int read_file(const fs::path &path, stringstream &stream) {
         if (fs::is_regular_file(item)) {
             if (is_text_file(item)) {
                 in.open(item.path());
+                if (!in.is_open()) {
+                    cerr << "An error occured opening file: " << item.path().filename().string() << endl;
+                    return 2;
+                }
                 stream << in.rdbuf();
                 in.close();
             } else {
