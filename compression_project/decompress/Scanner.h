@@ -113,25 +113,23 @@ private:
         }
     }
 
-
-
 public:
     explicit Scanner(string input) : input(move(input)) {
         tokenize();
     }
 
-    [[nodiscard]] vector<Token>& get_tokens() {
+    [[nodiscard]] vector<Token> &get_tokens() {
         return tokens;
     }
 
-    [[nodiscard]] unordered_map<string, string>& get_decoding_table() {
+    [[nodiscard]] unordered_map<string, string> &get_decoding_table() {
         return decoding_table;
     }
 
     [[nodiscard]] string str() const {
         stringstream out;
         out << "Decoding map" << endl;
-        for (auto const & item : decoding_table) {
+        for (auto const &item: decoding_table) {
             out << "('" << item.first << "','" << item.second << "')" << endl;
         }
         out << endl << "Tokens" << endl;

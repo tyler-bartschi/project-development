@@ -14,9 +14,10 @@ class Decompressor {
 public:
     Decompressor() = default;
 
-    [[nodiscard]] static string decompress(const vector<Token> &tokens, const unordered_map<string, string> &decoding_table) {
+    [[nodiscard]] static string decompress(const vector<Token> &tokens,
+                                           const unordered_map<string, string> &decoding_table) {
         stringstream out;
-        for (auto const & token : tokens) {
+        for (auto const &token: tokens) {
             if (token.get_type() == SINGLE) {
                 out << token.get_value();
             } else if (token.get_type() == STRING) {
@@ -25,6 +26,7 @@ public:
         }
         return out.str();
     }
+
     // static string decompress(const vector<Token> &tokens, const unordered_map<string, string> &decoding_table) {
     //     stringstream out;
     //     for (const auto& token : tokens) {

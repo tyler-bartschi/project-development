@@ -86,7 +86,7 @@ void do_file_decompression(const fs::path &infile, const fs::path &outfile) {
 }
 
 string find_decoding_table(const fs::path &infolder) {
-    for (const auto &item : fs::directory_iterator(infolder)) {
+    for (const auto &item: fs::directory_iterator(infolder)) {
         if (fs::is_regular_file(item) && item.path().filename().string() == "map.compressed") {
             ifstream in;
             in.open(item.path());
@@ -116,7 +116,8 @@ void move_file(const fs::path &source, const fs::path &destination) {
     out.close();
 }
 
-void decompress_file(const fs::path &infile, const fs::path &outfile, const unordered_map<string, string> &decoding_table) {
+void decompress_file(const fs::path &infile, const fs::path &outfile,
+                     const unordered_map<string, string> &decoding_table) {
     ifstream in;
     in.open(infile);
     check_if_open(in, infile.filename().string());
@@ -143,14 +144,14 @@ void do_folder_decompression(const fs::path &infolder, const fs::path &outfolder
     }
 
     Scanner table_container(decoding_file);
-    const unordered_map<string, string>& decoding_table = table_container.get_decoding_table();
+    const unordered_map<string, string> &decoding_table = table_container.get_decoding_table();
 
     if (fs::exists(outfolder)) {
         fs::remove_all(outfolder);
     }
 
     fs::create_directory(outfolder);
-    for (auto const &item : fs::recursive_directory_iterator(infolder)) {
+    for (auto const &item: fs::recursive_directory_iterator(infolder)) {
         fs::path relative = fs::relative(item.path(), infolder);
         fs::path dest_path = outfolder / relative;
 
@@ -175,7 +176,9 @@ int main(const int argc, char *argv[]) {
     if (argc != 3) {
         cerr << "Invalid number of arguments." << endl;
         cerr << "Usage: ./<executable> <input file or folder> <output file or folder>" << endl;
-        cerr << "Note, if input is a file, output will also be a file. If input is a folder, output will also be a folder." << endl;
+        cerr <<
+                "Note, if input is a file, output will also be a file. If input is a folder, output will also be a folder."
+                << endl;
         return 1;
     }
 
@@ -183,7 +186,9 @@ int main(const int argc, char *argv[]) {
     const fs::path output = argv[2];
 
     if (fs::exists(output)) {
-        cout << "Warning: " << output.filename().string() << " already exists. Proceeding with decompression will overwrite all content currently stored there." << endl;
+        cout << "Warning: " << output.filename().string() <<
+                " already exists. Proceeding with decompression will overwrite all content currently stored there." <<
+                endl;
         cout << "Would you like to proceed? (y/n) ";
         string user_response;
         cin >> user_response;
@@ -206,37 +211,4 @@ int main(const int argc, char *argv[]) {
     }
 
     return 0;
-
-    // ifstream in;
-    // in.open(argv[1]);
-    // if (!in.is_open()) {
-    //     cerr << "Unable to open file: " << argv[1] << endl;
-    //     return 1;
-    // }
-    //
-    // stringstream ss;
-    // ss << in.rdbuf();
-    // string input = ss.str();
-    // in.close();
-    //
-    // try {
-    //     Scanner s(input);
-    //     // cout << s.str() << endl;
-    //     // issue is that scanner thinks numbers are different tokens than the rest of the actual token value
-    //     // fix scanner tokenizer function to properly tokenize
-    //     string decompressed_file = Decompressor::decompress(s.get_tokens(), s.get_decoding_table());
-    //     ofstream out;
-    //     out.open(argv[2]);
-    //     if (!out.is_open()) {
-    //         cerr << "Unable to open file: " << argv[2] << endl;
-    //         return 1;
-    //     }
-    //     out << decompressed_file;
-    //     out.close();
-    // } catch (const std::exception &e) {
-    //     cerr << "An error occurred: " << e.what() << endl;
-    //     return 1;
-    // }
-    //
-    // return 0;
 }

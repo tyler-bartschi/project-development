@@ -6,7 +6,7 @@ using std::string;
 using std::vector;
 
 bool all_zeros(vector<int> &indexes) {
-    for (auto const &index : indexes) {
+    for (auto const &index: indexes) {
         if (index != 0) {
             return false;
         }
@@ -41,7 +41,7 @@ int main() {
     vector<int> indexes = {0};
     for (int j = 0; j < 1000; j++) {
         generate_new_string(indexes);
-        for (auto const &i : indexes) {
+        for (auto const &i: indexes) {
             cout << i << " ";
         }
         cout << endl;

@@ -80,7 +80,9 @@ void check_if_open(ofstream &file, const string &filename) {
 
 void do_file_compression(const string &input, const fs::path &output) {
     if (fs::exists(output)) {
-        cout << "Warning: " << output.filename().string() << " already exists. Proceeding with compression will overwrite all content currently in the file." << endl;
+        cout << "Warning: " << output.filename().string() <<
+                " already exists. Proceeding with compression will overwrite all content currently in the file." <<
+                endl;
         cout << "Would you like to proceed? (y/n)";
         string user_response;
         cin >> user_response;
@@ -304,7 +306,9 @@ int main(int argc, char *argv[]) {
         }
         do_file_to_folder_compression(input, output);
     } else {
-        cerr << "Invalid arguments. Must be two files, two folders, or an input file and an output folder, along with the designating flag." << endl;
+        cerr <<
+                "Invalid arguments. Must be two files, two folders, or an input file and an output folder, along with the designating flag."
+                << endl;
         cerr << "Cannot be an input folder and an output file." << endl;
         return 2;
     }
