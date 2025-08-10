@@ -79,6 +79,17 @@ void check_if_open(ofstream &file, const string &filename) {
 }
 
 void do_file_compression(const string &input, const fs::path &output) {
+    if (fs::exists(output)) {
+        cout << "Warning: " << output.filename().string() << " already exists. Proceeding with compression will overwrite all content currently in the file." << endl;
+        cout << "Would you like to proceed? (y/n)";
+        string user_response;
+        cin >> user_response;
+        if (user_response == "n" || user_response == "N") {
+            cout << "\n Canceling operation..." << endl;
+            return;
+        }
+    }
+
     Scanner s(input);
     const vector<Token> tokens = s.tokenize();
 
@@ -170,6 +181,7 @@ void do_folder_compression(const fs::path &input, const fs::path &output) {
         string user_input;
         cin >> user_input;
         if (user_input == "n" || user_input == "N") {
+            cout << "\nCanceling operation..." << endl;
             return;
         }
         fs::remove_all(output);
@@ -228,6 +240,7 @@ void do_file_to_folder_compression(const fs::path &input, const fs::path &output
         string user_input;
         cin >> user_input;
         if (user_input == "n" || user_input == "N") {
+            cout << "\nCanceling operation..." << endl;
             return;
         }
         fs::remove_all(output);
