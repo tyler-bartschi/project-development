@@ -6,6 +6,7 @@ Repository for personal project development, with the main focus being on develo
 
 Language: C++  
 Lines of Code: 1642
+Updated: 8/11/2025
 
 Consists of a compression algorithm, a decompression algorithm, and a comparison algorithm.
 
@@ -18,7 +19,20 @@ Usage: ./compress \<input file or folder\> \<-f or -d\> \<output file or folder\
 -f : indicates an input file, and to write to an output file  
 -d : indicates an input file or folder, and to write to an output folder
 
-If the output folder name exists, it will prompt the user if they want to rewrite the content in the existing file or folder.
+If the output file or folder name exists, it will prompt the user if they want to rewrite the content in the existing file or folder.
+
+Decompression Algorithm:  
+The decompression algorithm works by again tokenizing the file first, with tokens Single and String. Before tokenizing, it will either read the compression map from the beginning of the file and build its own unordered map mapping the compressed string to the uncompressed string, or read the 'map.compressed' file and build the same. Once the decompression map is built and the file tokenized, it will rebuild the file or the folder by replacing the compressed string with the uncompressed string. It will also move any uncompressed files, such as images, to the new directory. Unlike the compression algorithm, it assumes that if the input is a file, it will output a file. If the input is a folder, it will output a folder.
+
+Usage: ./decompress \<input file or folder\> \<output file or folder\>
+
+Again, if the output folder or file name exists, it will prompt the user if they want to rewrite the content in the existing file or folder.
+
+Comparison Algorithm:  
+This algorithm works by reading in two files or folders, and adding all of the text-based content into one huge string. Then, it will prompt the user for an exact character comparison. What this does is go character by character for both input strings, and checks to see if either are a mismatch. If there is a mismatch between characters, it will tell the user that the files or folders do not exactly match, but if there are no mismatches it will tell the user that the files or folders do exactly match. This was intended to ensure that compression was lossless. It will then prompt the user for a size comparison, which will analyze the lengths of the two strings and inform the user which file or folder is smaller, and what percentage the smaller file or folder is of the larger one. For example, it might give a result that says the first file is 63% the size of the second file. This was intended to analyze how much compression actually took place.
+
+Usage: ./compare \<input file or folder 1\> \<input file or folder 2\>
+
 
 ## Library Project
 
