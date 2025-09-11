@@ -5,7 +5,7 @@ Repository for personal project development, with the main focus being on develo
 ## Compression Project
 
 Language: C++  
-Lines of Code: 1642
+Lines of Code: 1642  
 Updated: 8/11/2025
 
 Consists of a compression algorithm, a decompression algorithm, and a comparison algorithm.
